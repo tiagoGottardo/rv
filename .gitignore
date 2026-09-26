@@ -1,0 +1,31 @@
+# Quartus compilation directories
+/db/
+/incremental_db/
+/greybox_tmp/
+/hc_output/
+/.qsys_edit/
+/*_sim/
+/simulation/
+
+# Bitstreams & Program files
+*.sof
+*.pof
+*.jam
+*.jbc
+*.cdf
+*.ekp
+
+# Reports & logs
+*.rpt
+*.summary
+*.smsg
+*.done
+*.pin
+*.jdi
+*.eqn
+*.qws
+*.bak
+
+# Temporary/Generated files
+*.qarlog
+PLLJ_PLLSPE_INFO.txt
