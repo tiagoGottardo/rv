@@ -1,3 +1,5 @@
+import log_pkg::*;
+
 interface alu_if;
   logic [31:0] a;
   logic [31:0] b;
@@ -26,20 +28,19 @@ module tb_alu;
 
     #1;
 
-    if (vif.result === result && vif.zero === zero) $display("[PASS] [%s]", test_name);
+    if (vif.result === result && vif.zero === zero) pass(test_name);
     else if (vif.result !== result)
-      $error("[FAIL] [%s] | Result Output=%0b, Expected=%0b", test_name, vif.result, result);
-    else if (vif.zero !== zero)
-      $error("[FAIL] [%s] | Zero Output=%0b, Expected=%0b", test_name, vif.zero, zero);
+      fail(test_name, $sformatf("Result Output=%0b, Expected=%0b", vif.result, result));
+    else fail(test_name, $sformatf("Zero Output=%0b, Expected=%0b", vif.zero, zero));
   endtask
 
   initial begin
 
     check_alu("It should test sum correctly", 32'd23, 32'd23, 4'd0, 32'd46, 1'b0);
+    check_alu("It should test sum correctly 2", 32'd23, 32'd23, 4'd0, 32'd46, 1'b1);
+    // check_alu("It should test sum correctly", 32'd23, 32'd23, 4'd0, 32'd0, 1);
 
-    // check_mux($urandom_range(0, 3), $urandom_range(0, 15));
-
-    $finish;
+    // $urandom_range(0, 3)
   end
 
 endmodule
