@@ -19,7 +19,7 @@ module alu (
       4'd6: result = (a < b) ? 32'b1 : 32'b0;
       4'd7: result = a << b_part;
       4'd8: result = a >> b_part;
-      4'd9: result = a >>> b_part;
+      4'd9: result = $signed(a) >>> b_part;
     endcase
 
     zero = (result == 0);
