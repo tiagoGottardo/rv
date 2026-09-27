@@ -1,4 +1,4 @@
-module decoder (
+module inst_splitter (
     input  wire [31:0] inst,
     output reg  [ 6:0] opcode,
     output reg  [ 4:0] rd,
