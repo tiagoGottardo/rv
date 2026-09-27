@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone III"
 set_global_assignment -name DEVICE EP3C16F484C6
-set_global_assignment -name TOP_LEVEL_ENTITY rv
+set_global_assignment -name TOP_LEVEL_ENTITY alu
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:50:22  SEPTEMBER 26, 2026"
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
@@ -54,4 +54,10 @@ set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 
 set_global_assignment -name SYSTEMVERILOG_FILE alu.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rv.sv
+set_global_assignment -name SYSTEMVERILOG_FILE mux2.sv
+
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
