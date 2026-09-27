@@ -35,12 +35,23 @@ module tb_alu;
   endtask
 
   initial begin
-
-    check_alu("It should test sum correctly", 32'd23, 32'd23, 4'd0, 32'd46, 1'b0);
-    check_alu("It should test sum correctly 2", 32'd23, 32'd23, 4'd0, 32'd46, 1'b1);
-    // check_alu("It should test sum correctly", 32'd23, 32'd23, 4'd0, 32'd0, 1);
-
-    // $urandom_range(0, 3)
+    check_alu("It should sum correctly", 32'd23, 32'd23, 4'd0, 32'd46, 1'b0);
+    check_alu("It should result 0", 32'b10000000000000000000000000000000,
+              32'b10000000000000000000000000000000, 4'd0, 0, 1'b1);
+    check_alu("It should sub correctly", 32'd23, 32'd21, 4'd1, 32'd2, 1'b0);
+    check_alu("It should and correctly", 32'd8, 32'd10, 4'd2, 32'd8, 1'b0);
+    check_alu("It should or correctly", 32'd8, 32'd10, 4'd3, 32'd10, 1'b0);
+    check_alu("It should xor correctly", 32'd8, 32'd10, 4'd4, 32'd2, 1'b0);
+    check_alu("It should check signed lt correctly", 32'b10000000000000000000000000000010,
+              32'b00000000000000000000000000000001, 4'd5, 32'd1, 1'b0);
+    check_alu("It should check unsigned lt correctly", 32'b10000000000000000000000000000010,
+              32'b10000000000000000000000000000001, 4'd6, 32'd0, 1'b1);
+    check_alu("It should shift left correctly", 32'b00000000000000000000000000000001, 32'd3, 4'd7,
+              32'b00000000000000000000000000001000, 1'b0);
+    check_alu("It should shift right correctly", 32'b00000000000000000000000000001000, 32'd4, 4'd8,
+              0, 1'b1);
+    check_alu("It should shift right arithmetic", 32'b10000000000000000000000000001000, 32'd3, 4'd9,
+              32'b11110000000000000000000000000001, 1'b0);
   end
 
 endmodule
