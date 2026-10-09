@@ -53,6 +53,18 @@ module tb_core_datapath;
     #1;
     if (dut.pc_current !== 32'h00000020) $fatal(1, "jalr target: got %h", dut.pc_current);
 
+    force dut.jump_register = 1'b0;
+    force dut.result_mux = 2'b01;
+    force dut.reg_write = 1'b1;
+    force dut.rd_addr = 5'd5;
+    force dut.funct3 = 3'b010;
+    force dut.alu_result = 32'h00000001;
+    dut.register_file.regs[5] = 32'h12345678;
+    @(posedge clk);
+    #1;
+    if (dut.register_file.regs[5] !== 32'h12345678)
+      $fatal(1, "misaligned load changed destination register");
+
     $finish;
   end
 endmodule

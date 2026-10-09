@@ -26,6 +26,7 @@ module core #(
   wire [31:0] rs1_data;
   wire [31:0] rs2_data;
   wire [31:0] write_data;
+  wire        rf_write_enable;
   wire [31:0] immediate_extended;
   wire [31:0] alu_a;
   wire [31:0] alu_b;
@@ -69,7 +70,7 @@ module core #(
 
   register_file register_file (
       .clk(clk),
-      .write_enable(reg_write),
+      .write_enable(rf_write_enable),
       .ra1(rs1_addr),
       .ra2(rs2_addr),
       .wa(rd_addr),
@@ -155,6 +156,8 @@ module core #(
       .read_data(data_read),
       .misaligned(data_misaligned)
   );
+
+  assign rf_write_enable = reg_write && !((result_mux == 2'b01) && data_misaligned);
 
   mux4 writeback_mux (
       .a(alu_result),
