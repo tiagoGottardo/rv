@@ -13,7 +13,7 @@ module sign_extender (
   localparam [6:0] OP_AUIPC = 7'b0010111;
   localparam [6:0] OP_JAL = 7'b1101111;
 
-  always_comb begin
+  always @(*) begin
     case (opcode)
       OP_JALR, OP_LOAD, OP_ALUI: imm = {{20{inst[31]}}, inst[31:20]};
       OP_STORE: imm = {{20{inst[31]}}, inst[31:25], inst[11:7]};

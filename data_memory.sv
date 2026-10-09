@@ -18,7 +18,7 @@ module data_memory #(
 
   assign word_addr = addr[ADDR_WIDTH+1:2];
 
-  always_comb begin
+  always @(*) begin
     case (addr[1:0])
       2'd0: selected_byte = mem[word_addr][7:0];
       2'd1: selected_byte = mem[word_addr][15:8];

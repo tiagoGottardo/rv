@@ -59,6 +59,6 @@ module tb_data_memory;
 
     store(3'b001, 32'h1, 32'h0000ffff);
     load("misaligned store suppressed", 3'b010, 32'h0, 32'h1234aa01);
-    $finish;
+    $finish(0);
   end
 endmodule

@@ -65,6 +65,6 @@ module tb_core_datapath;
     if (dut.register_file.regs[5] !== 32'h12345678)
       $fatal(1, "misaligned load changed destination register");
 
-    $finish;
+    $finish(0);
   end
 endmodule

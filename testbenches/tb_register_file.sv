@@ -38,6 +38,6 @@ module tb_register_file;
     #1;
     if (rd2 !== 32'b0) $fatal(1, "x0 changed: got %h", rd2);
 
-    $finish;
+    $finish(0);
   end
 endmodule
