@@ -1,4 +1,6 @@
-module data_memory (
+module data_memory #(
+    parameter ADDR_WIDTH = 6
+) (
     input  wire        clk,
     input  wire        write_enable,
     input  wire [ 2:0] funct3,
@@ -6,10 +8,12 @@ module data_memory (
     input  wire [31:0] write_data,
     output wire [31:0] read_data
 );
-  reg [31:0] mem[0:255];
+  parameter WORDS = (1 << ADDR_WIDTH);
+
+  reg [31:0] mem[0:WORDS-1];
   wire [7:0] word_addr;
 
-  assign word_addr = addr[9:2];
+  assign word_addr = addr[ADDR_WIDTH+1:2];
   assign read_data = mem[word_addr];
 
   always @(posedge clk) begin
