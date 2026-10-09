@@ -5,7 +5,7 @@ module pc (
     input wire [31:0] next,
     output reg [31:0] current
 );
-  always @(posedge clk) begin
+  always @(posedge clk or posedge reset) begin
     if (reset) current <= 0;
     else if (enable) current <= next;
   end
