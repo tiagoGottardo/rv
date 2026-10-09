@@ -5,6 +5,6 @@ module mux2 (
     output reg  [31:0] y
 );
   always_comb begin
-    y = sel ? a : b;
+    y = sel ? b : a;
   end
 endmodule

@@ -8,10 +8,11 @@ module mux4 (
 );
   always_comb begin
     case (sel)
-      4'd0: y = a;
-      4'd1: y = b;
-      4'd2: y = c;
-      4'd3: y = d;
+      2'd0: y = a;
+      2'd1: y = b;
+      2'd2: y = c;
+      2'd3: y = d;
+      default: y = 32'b0;
     endcase
   end
 endmodule
