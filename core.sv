@@ -163,7 +163,7 @@ module core #(
       .a(alu_result),
       .b(data_read),
       .c(pc_plus_4),
-      .d(32'b0),
+      .d(immediate_extended),
       .sel(result_mux),
       .y(write_data)
   );
