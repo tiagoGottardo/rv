@@ -1,17 +1,16 @@
 module dcu (
-    input  wire [31:0] inst,
-    output wire [ 6:0] opcode,
-    output reg         branch,
-    output reg  [ 1:0] result_mux,
-    output reg  [ 2:0] branch_op,
-    output reg         mem_write,
-    output reg         alu_src_a,
-    output reg         alu_src_b,
-    output reg         reg_write,
-    output reg  [ 5:0] alu_op,
-    output wire [31:0] rs1_addr,
-    output wire [31:0] rs2_addr,
-    output wire [31:0] rd_addr
+    input  wire [6:0] opcode,
+    input  wire [2:0] funct3,
+    input  wire [6:0] funct7,
+    output reg        branch,
+    output reg        jump,
+    output reg        jump_register,
+    output reg  [1:0] result_mux,
+    output reg        mem_write,
+    output reg        alu_src_a,
+    output reg        alu_src_b,
+    output reg        reg_write,
+    output reg  [3:0] alu_op
 );
-
+  // Instruction decoding is intentionally left for a separate implementation.
 endmodule
