@@ -4,32 +4,23 @@ module sign_extender (
     output reg  [31:0] imm
 );
 
-  // I Type
-  `define OP_JALR 7'b1100111
-  `define OP_LOAD 7'b0000011
-  `define OP_ALUI 7'b0010011
-
-  // S Type
-  `define OP_STORE 7'b0100011
-
-  // B Type
-  `define OP_BRANCH 7'b1100011
-
-  // U Type
-  `define OP_LUI 7'b0110111
-  `define OP_AUIPC 7'b0010111
-
-  // J Type
-  `define OP_JAL 7'b1101111
+  localparam [6:0] OP_JALR = 7'b1100111;
+  localparam [6:0] OP_LOAD = 7'b0000011;
+  localparam [6:0] OP_ALUI = 7'b0010011;
+  localparam [6:0] OP_STORE = 7'b0100011;
+  localparam [6:0] OP_BRANCH = 7'b1100011;
+  localparam [6:0] OP_LUI = 7'b0110111;
+  localparam [6:0] OP_AUIPC = 7'b0010111;
+  localparam [6:0] OP_JAL = 7'b1101111;
 
   always_comb begin
     case (opcode)
-      OP_JALR, OP_LOAD, OP_ALUI: imm = {{20{inst[31]}}, inst[31:25], inst[24:21], inst[20]};  // I
-      OP_STORE: imm = {{20{inst[31]}}, inst[31:25], inst[11:8], inst[7]};  // S
-      OP_BRANCH: imm = {{19{inst[31]}}, inst[7], inst[30:25], inst[11:8], 1'b0};  // B
-      OP_LUI, OP_AUIPC: imm = {inst[31], inst[30:20], inst[19:12], 12'b0};  // U
-      OP_JAL: imm = {{12{inst[31]}}, inst[19:12], inst[20], inst[30:25], inst[24:21], 1'b0};  // J
-      default: imm = 32'hFFFF_FFFF;
+      OP_JALR, OP_LOAD, OP_ALUI: imm = {{20{inst[31]}}, inst[31:20]};
+      OP_STORE: imm = {{20{inst[31]}}, inst[31:25], inst[11:7]};
+      OP_BRANCH: imm = {{19{inst[31]}}, inst[31], inst[7], inst[30:25], inst[11:8], 1'b0};
+      OP_LUI, OP_AUIPC: imm = {inst[31:12], 12'b0};
+      OP_JAL: imm = {{11{inst[31]}}, inst[31], inst[19:12], inst[20], inst[30:21], 1'b0};
+      default: imm = 32'b0;
     endcase
   end
 
