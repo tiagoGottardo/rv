@@ -5,8 +5,8 @@ module register_file (
     input  wire [ 4:0] ra2,
     input  wire [ 4:0] wa,
     input  wire [31:0] write_data,
-    output reg  [31:0] rd1,
-    output reg  [31:0] rd2
+    output wire [31:0] rd1,
+    output wire [31:0] rd2
 );
   reg [31:0] regs[0:31];
 
@@ -15,7 +15,7 @@ module register_file (
 
   always_ff @(posedge clk) begin
     if (write_enable && wa != 0) begin
-      regs[wa] = write_data;
+      regs[wa] <= write_data;
     end
   end
 
