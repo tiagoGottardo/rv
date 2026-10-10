@@ -1,16 +1,16 @@
 module register_file (
-    input  wire        clk,
-    input  wire        write_enable,
-    input  wire [ 4:0] ra1,
-    input  wire [ 4:0] ra2,
-    input  wire [ 4:0] debug_addr,
-    input  wire [ 4:0] wa,
-    input  wire [31:0] write_data,
-    output wire [31:0] rd1,
-    output wire [31:0] rd2,
-    output wire [31:0] debug_data
+    input  logic        clk,
+    input  logic        write_enable,
+    input  logic [ 4:0] ra1,
+    input  logic [ 4:0] ra2,
+    input  logic [ 4:0] debug_addr,
+    input  logic [ 4:0] wa,
+    input  logic [31:0] write_data,
+    output logic [31:0] rd1,
+    output logic [31:0] rd2,
+    output logic [31:0] debug_data
 );
-  reg [31:0] regs[0:31];
+  logic [31:0] regs[0:31];
 
   assign rd1 = (ra1 == 0) ? 32'b0 : regs[ra1];
   assign rd2 = (ra2 == 0) ? 32'b0 : regs[ra2];

@@ -1,6 +1,6 @@
 module hex7seg (
-    input  wire [3:0] value,
-    output reg  [6:0] segments_n
+    input  logic [3:0] value,
+    output logic [6:0] segments_n
 );
   always_comb begin
     case (value)

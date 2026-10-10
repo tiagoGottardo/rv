@@ -1,21 +1,21 @@
 module data_memory #(
     parameter ADDR_WIDTH = 6
 ) (
-    input  wire        clk,
-    input  wire        write_enable,
-    input  wire [ 2:0] funct3,
-    input  wire [31:0] addr,
-    input  wire [31:0] write_data,
-    output reg  [31:0] read_data,
-    output reg         misaligned
+    input  logic        clk,
+    input  logic        write_enable,
+    input  logic [ 2:0] funct3,
+    input  logic [31:0] addr,
+    input  logic [31:0] write_data,
+    output logic [31:0] read_data,
+    output logic        misaligned
 );
   parameter WORDS = (1 << ADDR_WIDTH);
 
-  reg [31:0] mem[0:WORDS-1];
-  wire [ADDR_WIDTH-1:0] word_addr;
-  wire [            31:0] addressed_word;
-  reg  [             7:0] selected_byte;
-  reg  [            15:0] selected_half;
+  logic [31:0] mem[0:WORDS-1];
+  logic [ADDR_WIDTH-1:0] word_addr;
+  logic [            31:0] addressed_word;
+  logic [             7:0] selected_byte;
+  logic [            15:0] selected_half;
 
   assign word_addr = addr[ADDR_WIDTH+1:2];
   assign addressed_word = mem[word_addr];

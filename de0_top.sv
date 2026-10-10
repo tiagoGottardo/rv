@@ -3,24 +3,24 @@ module de0_top #(
     parameter INIT_FILE = "programs/fibonacci.hex",  // init file path
     parameter DEBOUNCE_COUNTER_WIDTH = 20
 ) (
-    input  wire       CLOCK_50,
-    input  wire [1:0] BUTTON,
-    input  wire [5:0] SW,
-    output wire [6:0] HEX0_D,
-    output wire [6:0] HEX1_D,
-    output wire [6:0] HEX2_D,
-    output wire [6:0] HEX3_D,
-    output wire       HEX0_DP,
-    output wire       HEX1_DP,
-    output wire       HEX2_DP,
-    output wire       HEX3_DP
+    input  logic       CLOCK_50,
+    input  logic [1:0] BUTTON,
+    input  logic [5:0] SW,
+    output logic [6:0] HEX0_D,
+    output logic [6:0] HEX1_D,
+    output logic [6:0] HEX2_D,
+    output logic [6:0] HEX3_D,
+    output logic       HEX0_DP,
+    output logic       HEX1_DP,
+    output logic       HEX2_DP,
+    output logic       HEX3_DP
 );
-  reg  [ 1:0] reset_pipeline;
+  logic [1:0] reset_pipeline;
 
-  wire        reset;
-  wire        cpu_step;
-  wire [31:0] selected_register;
-  wire [15:0] displayed_half;
+  logic        reset;
+  logic        cpu_step;
+  logic [31:0] selected_register;
+  logic [15:0] displayed_half;
 
   initial reset_pipeline = 2'b11;
 

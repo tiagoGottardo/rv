@@ -1,9 +1,9 @@
 module pc (
-    input wire clk,
-    input wire reset,
-    input wire enable,
-    input wire [31:0] next,
-    output reg [31:0] current
+    input  logic        clk,
+    input  logic        reset,
+    input  logic        enable,
+    input  logic [31:0] next,
+    output logic [31:0] current
 );
   always @(posedge clk or posedge reset) begin
     if (reset) current <= 0;

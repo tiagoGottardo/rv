@@ -12,8 +12,10 @@ module test_dcu;
   logic       reg_write;
   logic [3:0] alu_op;
 
-  wire [12:0] controls = {branch, jump, jump_register, result_mux, mem_write, alu_src_a,
-                          alu_src_b, reg_write, alu_op};
+  logic [12:0] controls;
+
+  assign controls = {branch, jump, jump_register, result_mux, mem_write, alu_src_a,
+                     alu_src_b, reg_write, alu_op};
 
   dcu dut (.*);
 

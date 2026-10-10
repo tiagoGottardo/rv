@@ -1,12 +1,14 @@
 module alu (
-    input wire [31:0] a,
-    input wire [31:0] b,
-    input wire [3:0] op,
-    output reg [31:0] result,
-    output reg zero
+    input  logic [31:0] a,
+    input  logic [31:0] b,
+    input  logic [ 3:0] op,
+    output logic [31:0] result,
+    output logic        zero
 );
 
-  wire [4:0] b_part = b[4:0];
+  logic [4:0] b_part;
+
+  assign b_part = b[4:0];
 
   always_comb begin
     case (op)

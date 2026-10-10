@@ -1,11 +1,11 @@
 module inst_splitter (
-    input  wire [31:0] inst,
-    output wire [ 6:0] opcode,
-    output wire [ 4:0] rd,
-    output wire [ 4:0] rs1,
-    output wire [ 4:0] rs2,
-    output wire [ 2:0] funct3,
-    output wire [ 6:0] funct7
+    input  logic [31:0] inst,
+    output logic [ 6:0] opcode,
+    output logic [ 4:0] rd,
+    output logic [ 4:0] rs1,
+    output logic [ 4:0] rs2,
+    output logic [ 2:0] funct3,
+    output logic [ 6:0] funct7
 );
 
   assign opcode = inst[6:0];

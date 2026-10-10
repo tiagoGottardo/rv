@@ -1,16 +1,16 @@
 module dcu (
-    input  wire [6:0] opcode,
-    input  wire [2:0] funct3,
-    input  wire [6:0] funct7,
-    output reg        branch,
-    output reg        jump,
-    output reg        jump_register,
-    output reg  [1:0] result_mux,
-    output reg        mem_write,
-    output reg        alu_src_a,
-    output reg        alu_src_b,
-    output reg        reg_write,
-    output reg  [3:0] alu_op
+    input  logic [6:0] opcode,
+    input  logic [2:0] funct3,
+    input  logic [6:0] funct7,
+    output logic       branch,
+    output logic       jump,
+    output logic       jump_register,
+    output logic [1:0] result_mux,
+    output logic       mem_write,
+    output logic       alu_src_a,
+    output logic       alu_src_b,
+    output logic       reg_write,
+    output logic [3:0] alu_op
 );
   localparam [6:0] OP_LOAD = 7'b0000011;
   localparam [6:0] OP_MISC_MEM = 7'b0001111;

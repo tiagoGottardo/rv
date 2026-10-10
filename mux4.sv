@@ -1,10 +1,10 @@
 module mux4 (
-    input  wire [31:0] a,
-    input  wire [31:0] b,
-    input  wire [31:0] c,
-    input  wire [31:0] d,
-    input  wire [ 1:0] sel,
-    output reg  [31:0] y
+    input  logic [31:0] a,
+    input  logic [31:0] b,
+    input  logic [31:0] c,
+    input  logic [31:0] d,
+    input  logic [ 1:0] sel,
+    output logic [31:0] y
 );
   always_comb begin
     case (sel)

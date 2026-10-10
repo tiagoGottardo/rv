@@ -1,15 +1,15 @@
 module button_debouncer #(
     parameter COUNTER_WIDTH = 20
 ) (
-    input  wire clk,
-    input  wire reset,
-    input  wire button_n,
-    output reg  pressed_pulse
+    input  logic clk,
+    input  logic reset,
+    input  logic button_n,
+    output logic pressed_pulse
 );
-  reg button_meta_n;
-  reg button_sync_n;
-  reg debounced_n;
-  reg [COUNTER_WIDTH-1:0] stability_counter;
+  logic button_meta_n;
+  logic button_sync_n;
+  logic debounced_n;
+  logic [COUNTER_WIDTH-1:0] stability_counter;
 
   always_ff @(posedge clk or posedge reset) begin
     if (reset) begin

@@ -1,7 +1,7 @@
 module sign_extender (
-    input  wire [31:0] inst,
-    input  wire [ 6:0] opcode,
-    output reg  [31:0] imm
+    input  logic [31:0] inst,
+    input  logic [ 6:0] opcode,
+    output logic [31:0] imm
 );
 
   localparam [6:0] OP_JALR = 7'b1100111;

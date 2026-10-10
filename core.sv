@@ -2,49 +2,49 @@ module core #(
     parameter ADDR_WIDTH = 6,
     parameter INIT_FILE = ""
 ) (
-    input wire clk,
-    input wire rst,
-    input wire enable,
-    input wire [4:0] debug_addr,
-    output wire [31:0] debug_data
+    input  logic        clk,
+    input  logic        rst,
+    input  logic        enable,
+    input  logic [ 4:0] debug_addr,
+    output logic [31:0] debug_data
 );
-  wire [31:0] inst;
-  wire [ 6:0] opcode;
-  wire [ 4:0] rd_addr;
-  wire [ 4:0] rs1_addr;
-  wire [ 4:0] rs2_addr;
-  wire [ 2:0] funct3;
-  wire [ 6:0] funct7;
+  logic [31:0] inst;
+  logic [ 6:0] opcode;
+  logic [ 4:0] rd_addr;
+  logic [ 4:0] rs1_addr;
+  logic [ 4:0] rs2_addr;
+  logic [ 2:0] funct3;
+  logic [ 6:0] funct7;
 
-  wire        branch;
-  wire        jump;
-  wire        jump_register;
-  wire [ 1:0] result_mux;
-  wire        mem_write;
-  wire        alu_src_a;
-  wire        alu_src_b;
-  wire        reg_write;
-  wire [ 3:0] alu_op;
+  logic        branch;
+  logic        jump;
+  logic        jump_register;
+  logic [ 1:0] result_mux;
+  logic        mem_write;
+  logic        alu_src_a;
+  logic        alu_src_b;
+  logic        reg_write;
+  logic [ 3:0] alu_op;
 
-  wire [31:0] rs1_data;
-  wire [31:0] rs2_data;
-  wire [31:0] write_data;
-  wire        rf_write_enable;
-  wire [31:0] immediate_extended;
-  wire [31:0] alu_a;
-  wire [31:0] alu_b;
-  wire [31:0] alu_result;
-  wire        alu_zero;
-  wire        branch_taken;
+  logic [31:0] rs1_data;
+  logic [31:0] rs2_data;
+  logic [31:0] write_data;
+  logic        rf_write_enable;
+  logic [31:0] immediate_extended;
+  logic [31:0] alu_a;
+  logic [31:0] alu_b;
+  logic [31:0] alu_result;
+  logic        alu_zero;
+  logic        branch_taken;
 
-  wire [31:0] pc_current;
-  wire [31:0] pc_plus_4;
-  wire [31:0] branch_target;
-  wire [31:0] jalr_target;
-  reg  [31:0] pc_next;
+  logic [31:0] pc_current;
+  logic [31:0] pc_plus_4;
+  logic [31:0] branch_target;
+  logic [31:0] jalr_target;
+  logic [31:0] pc_next;
 
-  wire [31:0] data_read;
-  wire        data_misaligned;
+  logic [31:0] data_read;
+  logic        data_misaligned;
 
   inst_splitter inst_splitter (
       .inst(inst),

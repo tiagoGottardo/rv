@@ -1,9 +1,9 @@
 module branch_unit (
-    input  wire [31:0] rs1,
-    input  wire [31:0] rs2,
-    input  wire        branch,
-    input  wire [ 2:0] funct3,
-    output reg         taken
+    input  logic [31:0] rs1,
+    input  logic [31:0] rs2,
+    input  logic        branch,
+    input  logic [ 2:0] funct3,
+    output logic        taken
 );
 
   always_comb begin
