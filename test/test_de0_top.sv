@@ -1,4 +1,4 @@
-module tb_de0_top;
+module test_de0_top;
   logic       CLOCK_50 = 0;
   logic [1:0] BUTTON = 2'b11;
   logic [5:0] SW = 6'b0;

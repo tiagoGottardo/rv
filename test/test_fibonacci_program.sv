@@ -1,4 +1,4 @@
-module tb_fibonacci_program;
+module test_fibonacci_program;
   logic clk = 0;
   logic rst = 0;
   logic enable = 1;

@@ -1,4 +1,4 @@
-module tb_core_datapath;
+module test_core_datapath;
   logic clk = 0;
   logic rst = 0;
   logic enable = 1;

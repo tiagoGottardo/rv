@@ -1,4 +1,4 @@
-module tb_hex7seg;
+module test_hex7seg;
   logic [3:0] value;
   logic [6:0] segments_n;
 

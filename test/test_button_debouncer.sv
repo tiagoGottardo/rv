@@ -1,4 +1,4 @@
-module tb_button_debouncer;
+module test_button_debouncer;
   logic clk = 0;
   logic reset;
   logic button_n;

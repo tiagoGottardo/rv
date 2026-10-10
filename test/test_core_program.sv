@@ -1,4 +1,4 @@
-module tb_core_program;
+module test_core_program;
   logic clk = 0;
   logic rst = 0;
   logic enable = 1;
@@ -7,7 +7,7 @@ module tb_core_program;
 
   core #(
       .ADDR_WIDTH(4),
-      .INIT_FILE("testbenches/fixtures/core_program.hex")
+      .INIT_FILE("test/fixtures/core_program.hex")
   ) dut (
       .clk(clk),
       .rst(rst),

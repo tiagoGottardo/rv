@@ -1,4 +1,4 @@
-module tb_plus4;
+module test_plus4;
   logic [31:0] a;
   logic [31:0] y;
 

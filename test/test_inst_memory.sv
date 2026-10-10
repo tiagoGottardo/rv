@@ -1,9 +1,9 @@
-module tb_inst_memory;
+module test_inst_memory;
   logic [31:0] addr;
   logic [31:0] inst;
 
   inst_memory #(
-      .INIT_FILE("testbenches/fixtures/inst_memory.hex"),
+      .INIT_FILE("test/fixtures/inst_memory.hex"),
       .ADDR_WIDTH(2)
   ) dut (
       .addr(addr),

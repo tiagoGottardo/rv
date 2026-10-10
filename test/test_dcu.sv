@@ -1,4 +1,4 @@
-module tb_dcu;
+module test_dcu;
   logic [6:0] opcode;
   logic [2:0] funct3;
   logic [6:0] funct7;

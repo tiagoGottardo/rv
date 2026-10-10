@@ -1,4 +1,4 @@
-module tb_sign_extender;
+module test_sign_extender;
   logic [31:0] inst;
   logic [ 6:0] opcode;
   logic [31:0] imm;

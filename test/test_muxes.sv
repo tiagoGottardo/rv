@@ -1,4 +1,4 @@
-module tb_muxes;
+module test_muxes;
   logic [31:0] a;
   logic [31:0] b;
   logic [31:0] c;

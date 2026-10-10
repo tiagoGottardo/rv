@@ -10,7 +10,7 @@ package log_pkg;
 
   task automatic fail(input string test_name, input string details);
     $display("%s[FAIL] %s | %s%s", RED, test_name, details, RESET);
-    $fatal(1, "testbench failed");
+    $fatal(1, "test failed");
   endtask
 
 endpackage

@@ -1,4 +1,4 @@
-module tb_data_memory;
+module test_data_memory;
   logic        clk = 0;
   logic        write_enable;
   logic [ 2:0] funct3;

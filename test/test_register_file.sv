@@ -1,4 +1,4 @@
-module tb_register_file;
+module test_register_file;
   logic        clk = 0;
   logic        write_enable;
   logic [ 4:0] ra1;

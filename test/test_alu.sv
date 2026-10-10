@@ -8,7 +8,7 @@ interface alu_if;
   logic        zero;
 endinterface
 
-module tb_alu;
+module test_alu;
 
   alu_if vif ();
 
