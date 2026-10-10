@@ -13,25 +13,27 @@ module data_memory #(
 
   reg [31:0] mem[0:WORDS-1];
   wire [ADDR_WIDTH-1:0] word_addr;
+  wire [            31:0] addressed_word;
   reg  [             7:0] selected_byte;
   reg  [            15:0] selected_half;
 
   assign word_addr = addr[ADDR_WIDTH+1:2];
+  assign addressed_word = mem[word_addr];
 
   always @(*) begin
     case (addr[1:0])
-      2'd0: selected_byte = mem[word_addr][7:0];
-      2'd1: selected_byte = mem[word_addr][15:8];
-      2'd2: selected_byte = mem[word_addr][23:16];
-      default: selected_byte = mem[word_addr][31:24];
+      2'd0: selected_byte = addressed_word[7:0];
+      2'd1: selected_byte = addressed_word[15:8];
+      2'd2: selected_byte = addressed_word[23:16];
+      default: selected_byte = addressed_word[31:24];
     endcase
 
-    selected_half = addr[1] ? mem[word_addr][31:16] : mem[word_addr][15:0];
+    selected_half = addr[1] ? addressed_word[31:16] : addressed_word[15:0];
 
     case (funct3)
       3'b000: read_data = {{24{selected_byte[7]}}, selected_byte};
       3'b001: read_data = {{16{selected_half[15]}}, selected_half};
-      3'b010: read_data = mem[word_addr];
+      3'b010: read_data = addressed_word;
       3'b100: read_data = {24'b0, selected_byte};
       3'b101: read_data = {16'b0, selected_half};
       default: read_data = 32'b0;
