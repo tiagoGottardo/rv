@@ -3,10 +3,12 @@ module tb_register_file;
   logic        write_enable;
   logic [ 4:0] ra1;
   logic [ 4:0] ra2;
+  logic [ 4:0] debug_addr;
   logic [ 4:0] wa;
   logic [31:0] write_data;
   logic [31:0] rd1;
   logic [31:0] rd2;
+  logic [31:0] debug_data;
 
   register_file dut (.*);
 
@@ -25,6 +27,7 @@ module tb_register_file;
     write_enable = 1'b0;
     ra1 = 5'd0;
     ra2 = 5'd0;
+    debug_addr = 5'd0;
     wa = 5'd0;
     write_data = 32'b0;
 
@@ -33,10 +36,18 @@ module tb_register_file;
     #1;
     if (rd1 !== 32'h12345678) $fatal(1, "register write: got %h", rd1);
 
+    debug_addr = 5'd3;
+    #1;
+    if (debug_data !== 32'h12345678) $fatal(1, "debug read: got %h", debug_data);
+
     write(5'd0, 32'hffffffff);
     ra2 = 5'd0;
     #1;
     if (rd2 !== 32'b0) $fatal(1, "x0 changed: got %h", rd2);
+
+    debug_addr = 5'd0;
+    #1;
+    if (debug_data !== 32'b0) $fatal(1, "debug x0 changed: got %h", debug_data);
 
     $finish(0);
   end

@@ -1,12 +1,18 @@
 module tb_core_datapath;
   logic clk = 0;
   logic rst = 0;
+  logic enable = 1;
+  logic [4:0] debug_addr = 0;
+  logic [31:0] debug_data;
 
   core #(
       .ADDR_WIDTH(2)
   ) dut (
       .clk(clk),
-      .rst(rst)
+      .rst(rst),
+      .enable(enable),
+      .debug_addr(debug_addr),
+      .debug_data(debug_data)
   );
 
   always #5 clk = ~clk;
@@ -30,6 +36,12 @@ module tb_core_datapath;
     @(posedge clk);
     #1;
     if (dut.pc_current !== 32'd4) $fatal(1, "sequential pc: got %h", dut.pc_current);
+
+    enable = 1'b0;
+    @(posedge clk);
+    #1;
+    if (dut.pc_current !== 32'd4) $fatal(1, "disabled pc changed: got %h", dut.pc_current);
+    enable = 1'b1;
 
     force dut.immediate_extended = 32'd12;
     force dut.jump = 1'b1;

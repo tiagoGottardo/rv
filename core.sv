@@ -3,7 +3,10 @@ module core #(
     parameter INIT_FILE = ""
 ) (
     input wire clk,
-    input wire rst
+    input wire rst,
+    input wire enable,
+    input wire [4:0] debug_addr,
+    output wire [31:0] debug_data
 );
   wire [31:0] inst;
   wire [ 6:0] opcode;
@@ -70,13 +73,15 @@ module core #(
 
   register_file register_file (
       .clk(clk),
-      .write_enable(rf_write_enable),
+      .write_enable(rf_write_enable && enable),
       .ra1(rs1_addr),
       .ra2(rs2_addr),
+      .debug_addr(debug_addr),
       .wa(rd_addr),
       .write_data(write_data),
       .rd1(rs1_data),
-      .rd2(rs2_data)
+      .rd2(rs2_data),
+      .debug_data(debug_data)
   );
 
   branch_unit branch_unit (
@@ -132,7 +137,7 @@ module core #(
   pc pc (
       .clk(clk),
       .reset(rst),
-      .enable(1'b1),
+      .enable(enable),
       .next(pc_next),
       .current(pc_current)
   );
@@ -149,7 +154,7 @@ module core #(
       .ADDR_WIDTH(ADDR_WIDTH)
   ) data_memory (
       .clk(clk),
-      .write_enable(mem_write),
+      .write_enable(mem_write && enable),
       .funct3(funct3),
       .addr(alu_result),
       .write_data(rs2_data),
