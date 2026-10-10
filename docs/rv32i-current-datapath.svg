@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2600" height="1700" viewBox="0 0 2600 1700">
+  <defs>
+    <marker id="ad" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0 0,10 4,0 8" fill="#26384d"/></marker>
+    <marker id="ac" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0 0,10 4,0 8" fill="#7c3aed"/></marker>
+    <style>
+      .title{font:700 34px sans-serif;fill:#14213d}.sub{font:17px sans-serif;fill:#526176}
+      .blk{fill:#f8fafc;stroke:#26384d;stroke-width:2.5}.mem{fill:#eff6ff;stroke:#2563eb;stroke-width:2.5}
+      .ctlblk{fill:#f5f3ff;stroke:#7c3aed;stroke-width:2.5}.pcblk{fill:#ecfdf5;stroke:#059669;stroke-width:2.5}
+      .mux{fill:#fff7ed;stroke:#ea580c;stroke-width:2.5}.name{font:700 20px sans-serif;fill:#172033;text-anchor:middle}
+      .port{font:14px monospace;fill:#344256}.tiny{font:13px sans-serif;fill:#526176}.purple{font:13px sans-serif;fill:#6d28d9}
+      .wire{fill:none;stroke:#26384d;stroke-width:2.5;marker-end:url(#ad)}
+      .tap{fill:none;stroke:#26384d;stroke-width:2.5}.control{fill:none;stroke:#7c3aed;stroke-width:2.2;stroke-dasharray:9 6;marker-end:url(#ac)}
+      .clock{fill:none;stroke:#059669;stroke-width:2.2;stroke-dasharray:4 5;marker-end:url(#ad)}
+      .tag{font:13px monospace;fill:#172033;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect width="2600" height="1700" fill="#fff"/>
+  <text x="1300" y="48" class="title" text-anchor="middle">Current RV32I Core Datapath</text>
+  <text x="1300" y="78" class="sub" text-anchor="middle">Structural view of core.sv · spacious routed layout · combinational RV32I control decoding</text>
+
+  <!-- Clock and reset use the empty outer gutters. -->
+  <text x="28" y="111" class="port">clk</text><path d="M65 106 H2460" class="clock"/>
+  <path d="M200 106 V500" class="clock"/><path d="M680 106 V900 H750" class="clock"/><path d="M1940 106 V700" class="clock"/>
+  <text x="28" y="151" class="port">rst</text><path d="M65 146 H90 V580 H100" class="clock"/>
+
+  <!-- Fetch and decode row. -->
+  <rect x="100" y="500" width="200" height="120" rx="9" class="pcblk"/>
+  <text x="200" y="535" class="name">pc</text><text x="115" y="570" class="port">next[31:0]</text>
+  <text x="115" y="596" class="port">enable = 1</text><text x="238" y="570" class="port">current</text>
+
+  <rect x="400" y="300" width="250" height="130" rx="9" class="mem"/>
+  <text x="525" y="337" class="name">inst_memory</text><text x="415" y="375" class="port">addr</text>
+  <text x="555" y="375" class="port">inst[31:0]</text><text x="525" y="408" class="tiny" text-anchor="middle">2^ADDR_WIDTH words</text>
+
+  <rect x="750" y="220" width="300" height="260" rx="9" class="blk"/>
+  <text x="900" y="255" class="name">inst_splitter</text><text x="765" y="290" class="port">inst[31:0]</text>
+  <text x="920" y="292" class="port">opcode[6:0]</text><text x="920" y="327" class="port">funct3[2:0]</text>
+  <text x="920" y="362" class="port">funct7[6:0]</text><text x="780" y="450" class="port">rd</text>
+  <text x="870" y="450" class="port">rs1</text><text x="960" y="450" class="port">rs2</text>
+
+  <rect x="1250" y="180" width="330" height="300" rx="9" class="ctlblk"/>
+  <text x="1415" y="217" class="name">dcu / control</text>
+  <text x="1415" y="246" class="purple" text-anchor="middle">combinational RV32I decoder</text>
+  <text x="1268" y="285" class="port">inputs: opcode, funct3, funct7</text>
+  <text x="1268" y="322" class="port">branch · jump · jump_register</text>
+  <text x="1268" y="357" class="port">result_mux[1:0]</text><text x="1268" y="392" class="port">mem_write · reg_write</text>
+  <text x="1268" y="427" class="port">alu_src_a · alu_src_b</text><text x="1268" y="462" class="port">alu_op[3:0]</text>
+
+  <!-- Register, immediate, execute and memory row. -->
+  <rect x="750" y="700" width="350" height="230" rx="9" class="blk"/>
+  <text x="925" y="738" class="name">register_file</text>
+  <text x="785" y="727" class="port">ra1</text><text x="875" y="727" class="port">ra2</text><text x="965" y="727" class="port">wa</text>
+  <text x="765" y="800" class="port">write_data</text><text x="765" y="892" class="port">write_enable</text>
+  <text x="1025" y="765" class="port">rd1</text><text x="1025" y="875" class="port">rd2</text>
+  <text x="925" y="915" class="tiny" text-anchor="middle">asynchronous reads · x0 hard-wired to zero</text>
+
+  <rect x="750" y="1070" width="300" height="130" rx="9" class="blk"/>
+  <text x="900" y="1108" class="name">sign_extender</text><text x="765" y="1148" class="port">inst, opcode</text>
+  <text x="930" y="1180" class="port">imm[31:0]</text>
+
+  <polygon points="1280,670 1350,694 1350,766 1280,790" class="mux"/>
+  <text x="1315" y="724" class="name">mux</text><text x="1270" y="694" class="port" text-anchor="end">rs1</text>
+  <text x="1270" y="776" class="port" text-anchor="end">pc</text><text x="1315" y="812" class="tiny" text-anchor="middle">alu_src_a</text>
+
+  <polygon points="1280,840 1350,864 1350,936 1280,960" class="mux"/>
+  <text x="1315" y="894" class="name">mux</text><text x="1270" y="864" class="port" text-anchor="end">rs2</text>
+  <text x="1270" y="946" class="port" text-anchor="end">imm</text><text x="1315" y="982" class="tiny" text-anchor="middle">alu_src_b</text>
+
+  <polygon points="1480,720 1630,760 1630,900 1480,940 1510,830" class="blk"/>
+  <text x="1560" y="820" class="name">alu</text><text x="1560" y="848" class="tiny" text-anchor="middle">alu_op[3:0]</text>
+  <text x="1640" y="790" class="port">result</text><text x="1640" y="885" class="port">zero (unused)</text>
+
+  <rect x="1810" y="700" width="260" height="230" rx="9" class="mem"/>
+  <text x="1940" y="738" class="name">data_memory</text><text x="1825" y="775" class="port">addr = alu_result</text>
+  <text x="1825" y="810" class="port">write_data = rs2</text><text x="1825" y="845" class="port">funct3</text>
+  <text x="1825" y="880" class="port">write_enable</text><text x="1960" y="910" class="port">read_data</text>
+  <text x="1940" y="955" class="tiny" text-anchor="middle">LB/LH/LW/LBU/LHU · SB/SH/SW</text>
+
+  <polygon points="2250,690 2350,725 2350,905 2250,940" class="mux"/>
+  <text x="2300" y="790" class="name">writeback</text><text x="2300" y="818" class="tiny" text-anchor="middle">mux4</text>
+  <text x="2240" y="730" class="port" text-anchor="end">00 alu</text><text x="2240" y="780" class="port" text-anchor="end">01 memory</text>
+  <text x="2240" y="830" class="port" text-anchor="end">10 pc+4</text><text x="2240" y="880" class="port" text-anchor="end">11 immediate</text>
+
+  <rect x="1780" y="1040" width="340" height="100" rx="9" class="ctlblk"/>
+  <text x="1950" y="1078" class="name">register write guard</text>
+  <text x="1950" y="1112" class="port" text-anchor="middle">reg_write &amp;&amp; !(result_mux == 01 &amp;&amp; misaligned)</text>
+
+  <rect x="1250" y="1070" width="300" height="140" rx="9" class="blk"/>
+  <text x="1400" y="1108" class="name">branch_unit</text><text x="1265" y="1147" class="port">rs1, rs2</text>
+  <text x="1265" y="1180" class="port">branch, funct3</text><text x="1460" y="1180" class="port">taken</text>
+
+  <!-- Target computation row. -->
+  <rect x="400" y="1390" width="250" height="110" rx="9" class="pcblk"/>
+  <text x="525" y="1430" class="name">pc_incrementer</text><text x="525" y="1470" class="port" text-anchor="middle">pc_plus_4 = pc + 4</text>
+  <rect x="900" y="1390" width="250" height="110" rx="9" class="pcblk"/>
+  <text x="1025" y="1430" class="name">branch target</text><text x="1025" y="1470" class="port" text-anchor="middle">pc + immediate</text>
+  <rect x="1450" y="1390" width="270" height="110" rx="9" class="pcblk"/>
+  <text x="1585" y="1430" class="name">jalr target</text><text x="1585" y="1470" class="port" text-anchor="middle">alu_result &amp; 0xfffffffe</text>
+  <polygon points="2050,1325 2180,1365 2180,1515 2050,1555" class="mux"/>
+  <text x="2115" y="1415" class="name">next pc</text><text x="2115" y="1445" class="tiny" text-anchor="middle">priority mux</text>
+  <text x="2040" y="1370" class="port" text-anchor="end">jalr</text><text x="2040" y="1440" class="port" text-anchor="end">jump/taken</text>
+  <text x="2040" y="1510" class="port" text-anchor="end">pc+4</text>
+
+  <!-- Fetch/decode data: all routes stay in the gaps around blocks. -->
+  <path d="M300 560 H350 V365 H400" class="wire"/><text x="310" y="548" class="tag">pc_current[31:0]</text>
+  <path d="M650 365 H750" class="wire"/><text x="662" y="352" class="tag">inst[31:0]</text>
+  <path d="M700 365 V1135 H750" class="wire"/>
+  <path d="M1050 292 H1250" class="wire"/><path d="M1050 327 H1210 V285 H1250" class="wire"/>
+  <path d="M1050 362 H1190 V285 H1250" class="wire"/>
+  <path d="M810 480 V700" class="wire"/><path d="M900 480 V700" class="wire"/><path d="M990 480 V700" class="wire"/>
+  <text x="797" y="520" class="tag">rd[4:0]</text><text x="865" y="545" class="tag">rs1[4:0]</text><text x="955" y="570" class="tag">rs2[4:0]</text>
+
+  <!-- Register operands and ALU. -->
+  <path d="M1100 760 H1280" class="wire"/><text x="1120" y="748" class="tag">rs1_data</text>
+  <path d="M1100 870 H1280" class="wire"/><text x="1120" y="858" class="tag">rs2_data</text>
+  <path d="M1100 760 H1160 V1128 H1250" class="wire"/><path d="M1100 870 H1180 V1150 H1250" class="wire"/>
+  <path d="M1100 870 H1200 V990 H1760 V810 H1810" class="wire"/>
+  <path d="M1050 1150 H1130 V930 H1280" class="wire"/><text x="1060" y="1137" class="tag">immediate_extended</text>
+  <path d="M1050 1150 H1100 V1350 H1025 V1390" class="wire"/>
+  <path d="M300 560 H620 V620 H1180 V755 H1280" class="wire"/>
+  <path d="M1350 730 H1494" class="wire"/><path d="M1350 900 H1494" class="wire"/>
+
+  <!-- ALU, memory and writeback use the clear right-side lanes. -->
+  <path d="M1630 800 H1750 V765 H1810" class="wire"/><text x="1645" y="785" class="tag">alu_result</text>
+  <path d="M1630 800 H1700 V650 H2200 V730 H2250" class="wire"/>
+  <path d="M1630 800 H1680 V1340 H1585 V1390" class="wire"/>
+  <path d="M2070 800 H2200 V780 H2250" class="wire"/><text x="2082" y="788" class="tag">data_read</text>
+  <path d="M2350 815 H2450 V1270 H700 V815 H750" class="wire"/><text x="2362" y="802" class="tag">write_data</text>
+
+  <!-- PC calculations and return path remain in the bottom and left gutters. -->
+  <path d="M300 560 H330 V1445 H400" class="wire"/><path d="M300 560 H360 V1445 H900" class="wire"/>
+  <path d="M650 1445 V1580 H2000 V1510 H2050" class="wire"/><text x="675" y="1565" class="tag">pc_plus_4</text>
+  <path d="M650 1445 V1600 H2160 V830 H2250" class="wire"/>
+  <path d="M1150 1445 V1540 H1980 V1440 H2050" class="wire"/><path d="M1720 1445 H2050" class="wire"/>
+  <path d="M2180 1440 H2500 V1640 H60 V560 H100" class="wire"/><text x="2200" y="1426" class="tag">pc_next[31:0]</text>
+
+  <!-- Field fan-outs. -->
+  <path d="M1050 292 H1120 V1040 H720 V1135 H750" class="wire"/><text x="1128" y="1015" class="tag">opcode</text>
+  <path d="M1110 327 V650 H1740 V845 H1810" class="wire"/>
+  <path d="M1110 327 V1020 H1220 V1170 H1250" class="wire"/><text x="1120" y="1005" class="tag">funct3</text>
+
+  <!-- Control routes: top control corridor y=570, vertical drops only through module gaps. -->
+  <path d="M1300 480 V570 H1200 V790 H1315" class="control"/><text x="1190" y="610" class="purple">alu_src_a</text>
+  <path d="M1340 480 V590 H1220 V960 H1315" class="control"/><text x="1228" y="620" class="purple">alu_src_b</text>
+  <path d="M1380 480 V610 H1560 V740" class="control"/><text x="1480" y="598" class="purple">alu_op</text>
+  <path d="M1420 480 V630 H1740 V880 H1810" class="control"/><text x="1660" y="620" class="purple">mem_write</text>
+  <path d="M1460 480 V650 H2160 V850 H2250" class="control"/><text x="2070" y="638" class="purple">result_mux</text>
+  <path d="M1460 480 V640 H1740 V1090 H1780" class="control"/>
+  <path d="M1500 480 V670 H1720 V1070 H1780" class="control"/><text x="1640" y="660" class="purple">reg_write</text>
+  <path d="M2070 900 H2150 V1120 H2120" class="control"/><text x="2080" y="950" class="purple">misaligned</text>
+  <path d="M1780 1090 H1680 V1260 H680 V890 H750" class="control"/><text x="690" y="1248" class="purple">rf_write_enable</text>
+  <path d="M1530 480 V520 H1180 V1180 H1250" class="control"/><text x="1168" y="1160" class="purple" text-anchor="end">branch</text>
+  <path d="M1540 480 V550 H2160 V1440 H2050" class="control"/><text x="2170" y="560" class="purple">jump</text>
+  <path d="M1560 480 V530 H2190 V1370 H2050" class="control"/><text x="2200" y="540" class="purple">jump_register</text>
+  <path d="M1550 1170 H1740 V1240 H2000 V1440 H2050" class="control"/><text x="1565" y="1158" class="purple">branch_taken</text>
+
+  <!-- Legend. -->
+  <rect x="90" y="1510" width="520" height="92" rx="9" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <path d="M120 1540 H210" class="wire"/><text x="228" y="1546" class="tiny">data / field</text>
+  <path d="M350 1540 H440" class="control"/><text x="458" y="1546" class="tiny">control</text>
+  <path d="M120 1575 H210" class="clock"/><text x="228" y="1581" class="tiny">clock / reset</text>
+  <text x="350" y="1581" class="tiny">arrows show signal direction</text>
+</svg>
