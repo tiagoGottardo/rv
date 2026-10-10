@@ -7,7 +7,7 @@ module tb_fibonacci_program;
 
   core #(
       .ADDR_WIDTH(6),
-      .INIT_FILE("program.hex")
+      .INIT_FILE("programs/fibonacci.hex")
   ) dut (
       .clk(clk),
       .rst(rst),
@@ -21,17 +21,19 @@ module tb_fibonacci_program;
   initial begin
     #1 rst = 1'b1;
     #1 rst = 1'b0;
-    repeat (55) @(posedge clk);
+    repeat (65) @(posedge clk);
     #1;
 
-    if (dut.register_file.regs[1] !== 32'd55)
-      $fatal(1, "fibonacci x1: got %0d", dut.register_file.regs[1]);
-    if (dut.register_file.regs[2] !== 32'd89)
-      $fatal(1, "fibonacci x2: got %0d", dut.register_file.regs[2]);
-    if (dut.register_file.regs[3] !== 32'd0)
-      $fatal(1, "fibonacci counter: got %0d", dut.register_file.regs[3]);
-    if (dut.pc_current !== 32'd32)
-      $fatal(1, "fibonacci halt loop pc: got %0d", dut.pc_current);
+    if (dut.register_file.regs[5] !== 32'd55)
+      $fatal(1, "fibonacci t0: got %0d", dut.register_file.regs[5]);
+    if (dut.register_file.regs[6] !== 32'd89)
+      $fatal(1, "fibonacci t1: got %0d", dut.register_file.regs[6]);
+    if (dut.register_file.regs[7] !== 32'd0)
+      $fatal(1, "fibonacci counter: got %0d", dut.register_file.regs[7]);
+    if (dut.data_memory.mem[0] !== 32'd55)
+      $fatal(1, "stored fibonacci result: got %0d", dut.data_memory.mem[0]);
+    if (dut.pc_current !== 32'd40)
+      $fatal(1, "pc before ebreak: got %0d", dut.pc_current);
 
     $finish(0);
   end
