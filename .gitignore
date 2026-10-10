@@ -6,6 +6,8 @@
 /.qsys_edit/
 /*_sim/
 /simulation/
+*.png
+*.hex
 
 # Bitstreams & Program files
 *.sof
