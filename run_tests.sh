@@ -36,7 +36,8 @@ for test in "${tests[@]}"; do
   executable="$BUILD_DIR/$top_module"
 
   echo "==> $test"
-  if ! iverilog -g2012 -s "$top_module" -o "$executable" "${design_sources[@]}" "$test"; then
+  if ! iverilog -g2012 -s "$top_module" -o "$executable" "${design_sources[@]}" "$test" \
+    2> >(sed '/sorry: constant selects in always_\* processes are not fully supported/d' >&2); then
     ((failures += 1))
     echo "FAIL: compilation failed for $test" >&2
     continue
