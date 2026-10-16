@@ -11,16 +11,16 @@ module data_memory #(
 );
   parameter WORDS = (1 << ADDR_WIDTH);
 
-  logic [31:0] mem[0:WORDS-1];
+  logic [          31:0] mem            [0:WORDS-1];
   logic [ADDR_WIDTH-1:0] word_addr;
-  logic [            31:0] addressed_word;
-  logic [             7:0] selected_byte;
-  logic [            15:0] selected_half;
+  logic [          31:0] addressed_word;
+  logic [           7:0] selected_byte;
+  logic [          15:0] selected_half;
 
   assign word_addr = addr[ADDR_WIDTH+1:2];
   assign addressed_word = mem[word_addr];
 
-  always @(*) begin
+  always_comb begin
     case (addr[1:0])
       2'd0: selected_byte = addressed_word[7:0];
       2'd1: selected_byte = addressed_word[15:8];
@@ -31,11 +31,11 @@ module data_memory #(
     selected_half = addr[1] ? addressed_word[31:16] : addressed_word[15:0];
 
     case (funct3)
-      3'b000: read_data = {{24{selected_byte[7]}}, selected_byte};
-      3'b001: read_data = {{16{selected_half[15]}}, selected_half};
-      3'b010: read_data = addressed_word;
-      3'b100: read_data = {24'b0, selected_byte};
-      3'b101: read_data = {16'b0, selected_half};
+      3'b000:  read_data = {{24{selected_byte[7]}}, selected_byte};
+      3'b001:  read_data = {{16{selected_half[15]}}, selected_half};
+      3'b010:  read_data = addressed_word;
+      3'b100:  read_data = {24'b0, selected_byte};
+      3'b101:  read_data = {16'b0, selected_half};
       default: read_data = 32'b0;
     endcase
 
@@ -63,7 +63,7 @@ module data_memory #(
           if (!addr[1]) mem[word_addr][15:0] <= write_data[15:0];
           else mem[word_addr][31:16] <= write_data[15:0];
         end
-        3'b010: mem[word_addr] <= write_data;
+        3'b010:  mem[word_addr] <= write_data;
         default: ;
       endcase
     end
